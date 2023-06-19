@@ -1,0 +1,55 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build",
+      "type": "shell",
+      "command": "cmake --build .",
+      "options": {
+        "cwd": "${workspaceRoot}/build",
+        "generator": "Ninja"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "CMake build simulation"
+    },
+    {
+      "label": "Build",
+      "type": "shell",
+      "command": "cmake --build . --clean-first",
+      "options": {
+        "cwd": "${workspaceRoot}/build",
+        "generator": "Ninja"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "CMake build simulation from scratch"
+    },
+    {
+      "type": "shell",
+      "label": "Run",
+      "command": "${workspaceRoot}/build/simulation",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "detail": "run simulation"
+    },
+    {
+      "type": "shell",
+      "label": "Build & Run",
+      "dependsOrder": "sequence",
+      "dependsOn": ["Build", "Run"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "build and run simulation"
+    }
+  ]
+}
