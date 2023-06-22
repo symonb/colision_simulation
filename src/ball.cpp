@@ -49,7 +49,7 @@ sf::Color HUEtoRGB(float H)
     return sf::Color((r + m) * 255, (g + m) * 255, (b + m) * 255);
 }
 
-Ball::Ball() : mass{(float)0. * rand() / RAND_MAX + 1.f}, velocity{0, 0}
+Ball::Ball() : mass{1.f}, velocity{0, 0}
 {
     this->flavour = (flavour_t)((float)FLAVOUR_COUNT * rand() / ((float)RAND_MAX + 1));
     this->force_relations = force_relation_tab[this->flavour];
@@ -69,6 +69,7 @@ void Ball::update(float dt)
 {
     this->shape.move(this->velocity * dt);
     this->total_velocity = Vector2length(this->velocity);
+    this->force = {0, 0};
     // shape.setFillColor(HUEtoRGB(this->total_velocity * 60 * (this->force_coef > 0 ? 1 : -1)));
 }
 

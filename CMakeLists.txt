@@ -8,6 +8,7 @@ src/ball.cpp
 find_package(benchmark REQUIRED)
 find_package(SFML 2.4 COMPONENTS system window graphics REQUIRED)
 find_package( OpenCV REQUIRED )
+find_package(TBB REQUIRED)
 
 target_include_directories(${TARGET} PUBLIC include)
 include_directories( ${OpenCV_INCLUDE_DIRS} )
@@ -18,5 +19,6 @@ target_link_libraries(${TARGET} PUBLIC sfml-graphics)
 target_link_libraries(${TARGET} PUBLIC sfml-window)
 target_link_libraries(${TARGET} PUBLIC sfml-system)
 target_link_libraries(${TARGET} PUBLIC  ${OpenCV_LIBS} )
+target_link_libraries(${TARGET} PUBLIC TBB::tbb)
 
 

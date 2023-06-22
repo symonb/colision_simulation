@@ -25,9 +25,10 @@ public:
     flavour_t flavour;
     float *force_relations;
     float mass{1.f};
-    const float radious{2 * mass};
+    const float radious{3};
     float total_velocity;
     Vector2f velocity;
+    std::vector<int64_t> force = {0, 0};
 
     void update(float dt);
     float distance(Ball &sec_ball) const;
