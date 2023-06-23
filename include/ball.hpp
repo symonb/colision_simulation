@@ -22,16 +22,20 @@ public:
     Ball();
     ~Ball() = default;
     CircleShape shape;
+
     flavour_t flavour;
     float *force_relations;
-    float mass{1.f};
-    const float radious{3};
+    float mass;
+    const float radius{1 * mass};
     float total_velocity;
     Vector2f velocity;
-    std::vector<int64_t> force = {0, 0};
+    std::vector<float> velocity_3D = {0, 0, 0};
+    std::vector<float> position_3D{3};
+    std::vector<int64_t> force = {0, 0, 0};
 
     void update(float dt);
-    float distance(Ball &sec_ball) const;
+    float distance_2D(Ball &sec_ball) const;
+    float distance_3D(Ball &sec_ball) const;
 
 private:
     void draw(RenderTarget &target, RenderStates state) const override;

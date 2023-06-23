@@ -1,10 +1,10 @@
 #include "ball.hpp"
 
 float force_relation_tab[FLAVOUR_COUNT][FLAVOUR_COUNT] = {
-    {1., 0.1, 0.4, 0.6},
-    {-1., 1.1, -0.5, 0.5},
-    {1., -0.5, 1.8, 0.2},
-    {1.4, 2., 2.5, -2.01}};
+    {1., -0.4, 0.1, 0.6},
+    {-0.8, 1.1, -0.5, 0.9},
+    {1., -0.5, -0.3, -0.2},
+    {0.1, -0.4, 1., .91}};
 
 template <typename T>
 T Vector2length(const sf::Vector2<T> &v)
@@ -49,15 +49,17 @@ sf::Color HUEtoRGB(float H)
     return sf::Color((r + m) * 255, (g + m) * 255, (b + m) * 255);
 }
 
-Ball::Ball() : mass{1.f}, velocity{0, 0}
+Ball::Ball() : mass{(float)rand() / RAND_MAX + 2.f}, velocity_3D{0, 0, 0}
 {
     this->flavour = (flavour_t)((float)FLAVOUR_COUNT * rand() / ((float)RAND_MAX + 1));
     this->force_relations = force_relation_tab[this->flavour];
-    this->total_velocity = Vector2length(this->velocity);
-    shape.setPosition(100 * rand() / RAND_MAX, 100 * rand() / RAND_MAX);
+    this->velocity = {velocity_3D[0], velocity_3D[1]};
+    this->total_velocity = Vector2length(velocity);
+    this->position_3D = {100.f * rand() / RAND_MAX, 100.f * rand() / RAND_MAX, 100.f * rand() / RAND_MAX};
+    shape.setPosition(position_3D[0], position_3D[1]);
     shape.setFillColor(HUEtoRGB(60 * this->flavour));
-    shape.setRadius(this->radious);
-    shape.setOrigin(this->radious, this->radious);
+    shape.setRadius(this->radius);
+    shape.setOrigin(this->radius, this->radius);
 }
 
 void Ball::draw(RenderTarget &target, RenderStates state) const
@@ -69,11 +71,20 @@ void Ball::update(float dt)
 {
     this->shape.move(this->velocity * dt);
     this->total_velocity = Vector2length(this->velocity);
-    this->force = {0, 0};
+    this->force = {0, 0, 0};
     // shape.setFillColor(HUEtoRGB(this->total_velocity * 60 * (this->force_coef > 0 ? 1 : -1)));
 }
 
-float Ball::distance(Ball &sec_ball) const
+float Ball::distance_2D(Ball &sec_ball) const
 {
     return Vector2length(this->shape.getPosition() - sec_ball.shape.getPosition());
+}
+
+float Ball::distance_3D(Ball &sec_ball) const
+{
+    float dx = sec_ball.position_3D[0] - this->position_3D[0];
+    float dy = sec_ball.position_3D[1] - this->position_3D[1];
+    float dz = sec_ball.position_3D[2] - this->position_3D[2];
+
+    return std::sqrt(dx * dx + dy * dy + dz * dz);
 }

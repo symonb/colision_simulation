@@ -1,6 +1,7 @@
-images/*.png
+images/*
 build/*
 *.avi
+*.mp4
 # Prerequisites
 *.d
 
