@@ -36,6 +36,10 @@ To speed up the whole simulation multithreading was used (TBB library). Since th
 <img src="readme_img/timing.png" align="center" style = "width: 40rem"  />
 
 <br/>
-All versions of the simulator produce the same result for given initial conditions. To produce the same initial values of positions, masses etc. rand generator is initiated with the same seed stand(NULL). you can c
+All versions of the simulator produce the same result for given initial conditions. To produce the same initial values of positions, masses etc. rand generator is initiated with the same seed stand(NULL). You can change seed or use the time as the seed to have each time a unique simulation. 
+
+<br/>
+For fun, I extended the code into 3D but visualization is still parallel to xy plain so the effects are not that spectacular. 
+
 
 
